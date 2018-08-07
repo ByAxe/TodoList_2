@@ -1,7 +1,12 @@
-const types = {};
+const types = {
+    ADD: 'ADD'
+};
 
-export const actionCreators = {};
-
+export const actionCreators = {
+    add: (item) => {
+        return {type: types.ADD, payload: item}
+    }
+};
 
 const initialState = {
     items: [
@@ -21,10 +26,24 @@ const initialState = {
     ],
 };
 
+let i = 12;
+
+const generateId = () => {
+    i += 1;
+    return i;
+};
+
 export const reducer = (state = initialState, action) => {
+    const {items} = state;
     const {type, payload} = action;
 
     switch (type) {
+        case types.ADD: {
+            return {
+                ...state,
+                items: [{id: generateId(), text: payload}, ...items],
+            }
+        }
         default: {
             return state
         }

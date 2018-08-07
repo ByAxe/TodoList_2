@@ -18,9 +18,11 @@ const styles = StyleSheet.create({
 export default class Title extends Component {
 
     render() {
+        const {title} = this.props;
+
         return (
             <View style={styles.header}>
-                <Text style={styles.text}>To-Do List</Text>
+                <Text style={styles.text}>{title}</Text>
             </View>
         )
     }

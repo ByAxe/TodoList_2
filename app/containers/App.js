@@ -6,6 +6,7 @@ import {Grid, Row} from "react-native-easy-grid";
 import Title from '../components/Title'
 import Footer from '../components/Footer'
 import Input from "../components/Input";
+import {actionCreators} from "../redux/todoRedux";
 
 const styles = StyleSheet.create({
     list: {
@@ -33,16 +34,25 @@ class App extends Component {
         )
     };
 
+    onAddTodo = (text) => {
+        const {dispatch} = this.props;
+
+        dispatch(actionCreators.add(text));
+    };
+
     render() {
         return (
             <Grid>
                 <Row size={8}>
-                    <Title/>
+                    <Title title={'To-Do List'}/>
                 </Row>
                 <Row size={84}>
                     <ScrollView>
                         <Row size={15}>
-                            <Input></Input>
+                            <Input
+                                placeholder={'Enter an item'}
+                                onSubmitEditing={this.onAddTodo}
+                            />
                         </Row>
                         <Row size={85}>
                             <FlatList
