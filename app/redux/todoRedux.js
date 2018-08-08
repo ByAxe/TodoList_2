@@ -60,7 +60,7 @@ export const reducer = (state = initialState, action) => {
         case types.REMOVE_ITEM: {
             return {
                 ...state,
-                items: items.filter((item, i) => i !== payload),
+                items: items.filter(item => item.id !== payload),
             }
         }
         case types.TOGGLE_ITEM_COMPLETED: {
@@ -74,7 +74,7 @@ export const reducer = (state = initialState, action) => {
 
             while (checkedItems.length !== 0) {
                 let index = checkedItems.pop();
-                _items = _items.filter((item, i) => i !== index)
+                _items = _items.filter(item => item.id !== index)
             }
 
             return {
