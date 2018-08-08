@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'lightblue',
         justifyContent: 'flex-start',
-        alignItems: 'center'
     },
     text: {
         fontSize: 14,
         color: 'white',
-        padding: 25
+        padding: 25,
+        textAlign: 'center',
     }
 });
 

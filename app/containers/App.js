@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FlatList, ScrollView, StyleSheet, Text} from 'react-native'
+import {FlatList, ScrollView, StyleSheet, View} from 'react-native'
 import {connect} from 'react-redux'
 import {Grid, Row} from "react-native-easy-grid";
 
@@ -7,6 +7,7 @@ import Title from '../components/Title'
 import Footer from '../components/Footer'
 import Input from "../components/Input";
 import {actionCreators} from "../redux/todoRedux";
+import Item from "../components/Item";
 
 const styles = StyleSheet.create({
     list: {
@@ -15,7 +16,12 @@ const styles = StyleSheet.create({
     },
     row: {
         padding: 15,
+        fontSize: 16
     },
+    content: {
+        flex: 1,
+        alignItems: 'stretch',
+    }
 });
 
 const mapStateToProps = (state) => ({
@@ -26,19 +32,33 @@ const extractKey = ({id}) => id.toString();
 
 class App extends Component {
 
-    renderItem = ({item}) => {
-        return (
-            <Text style={styles.row}>
-                {item.text}
-            </Text>
-        )
-    };
-
     onAddTodo = (text) => {
         const {dispatch} = this.props;
 
-        dispatch(actionCreators.add(text));
+        dispatch(actionCreators.addItem(text));
     };
+
+    onRemoveTodo = (index) => {
+        const {dispatch} = this.props;
+
+        dispatch(actionCreators.removeItem(index));
+    };
+
+    onPressCheck = (index) => {
+        const {dispatch} = this.props;
+
+        dispatch(actionCreators.toggleItemCompleted(index))
+    };
+
+    renderItem = ({item}) => {
+        return (
+            <Item
+                item={item}
+                onPressCheck={this.onPressCheck}
+            />
+        )
+    };
+
 
     render() {
         return (
@@ -47,24 +67,26 @@ class App extends Component {
                     <Title title={'To-Do List'}/>
                 </Row>
                 <Row size={84}>
-                    <ScrollView>
-                        <Row size={15}>
+                    <View style={styles.content}>
+                        <Row size={10}>
                             <Input
                                 placeholder={'Enter an item'}
                                 onSubmitEditing={this.onAddTodo}
                             />
                         </Row>
-                        <Row size={85}>
-                            <FlatList
-                                data={this.props.items}
-                                renderItem={this.renderItem}
-                                keyExtractor={extractKey}
-                            />
+                        <Row size={90}>
+                            <ScrollView>
+                                <FlatList
+                                    data={this.props.items}
+                                    renderItem={this.renderItem}
+                                    keyExtractor={extractKey}
+                                />
+                            </ScrollView>
                         </Row>
-                    </ScrollView>
+                    </View>
                 </Row>
                 <Row size={8}>
-                    <Footer/>
+                    <Footer text={'Remove completed items'}/>
                 </Row>
             </Grid>
         )

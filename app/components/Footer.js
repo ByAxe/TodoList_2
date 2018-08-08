@@ -22,10 +22,12 @@ const styles = StyleSheet.create({
 
 export default class Footer extends Component {
     render() {
+        const {text} = this.props;
+
         return (
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.touchableOpacity}>
-                    <Text style={styles.text}>Remove completed items</Text>
+                    <Text style={styles.text}>{text}</Text>
                 </TouchableOpacity>
             </View>
         )

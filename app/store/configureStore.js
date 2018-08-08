@@ -1,4 +1,4 @@
-import {applyMiddleware, createStore} from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux';
 // Thunk middleware allows actions to be chained and waited on by returning
 // a function from that action
 // https://github.com/gaearon/redux-thunk
@@ -24,7 +24,9 @@ export default (initialState) => {
     const store = createStore(
         reducer,
         initialState,
-        applyMiddleware(...middleware),
+        compose(
+            applyMiddleware(...middleware),
+        )
     );
     return store
 }

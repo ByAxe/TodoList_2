@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderBottomWidth: 0.5,
         borderBottomColor: 'lightgray',
-        alignItems: 'stretch',
     },
     input: {
         margin: 15,

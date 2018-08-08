@@ -1,10 +1,18 @@
 const types = {
-    ADD: 'ADD'
+    ADD_ITEM: 'ADD_ITEM',
+    REMOVE_ITEM: 'REMOVE_ITEM',
+    TOGGLE_ITEM_COMPLETED: 'TOGGLE_ITEM_COMPLETED',
 };
 
 export const actionCreators = {
-    add: (item) => {
-        return {type: types.ADD, payload: item}
+    addItem: (item) => {
+        return {type: types.ADD_ITEM, payload: item}
+    },
+    removeItem: (index) => {
+        return {type: types.REMOVE_ITEM, payload: index}
+    },
+    toggleItemCompleted: (index) => {
+        // TODO
     }
 };
 
@@ -38,10 +46,21 @@ export const reducer = (state = initialState, action) => {
     const {type, payload} = action;
 
     switch (type) {
-        case types.ADD: {
+        case types.ADD_ITEM: {
             return {
                 ...state,
                 items: [{id: generateId(), text: payload}, ...items],
+            }
+        }
+        case types.REMOVE_ITEM: {
+            return {
+                ...state,
+                items: items.filter((item, i) => i !== payload),
+            }
+        }
+        case types.TOGGLE_ITEM_COMPLETED: {
+            return {
+                // TODO
             }
         }
         default: {
