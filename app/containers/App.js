@@ -37,7 +37,7 @@ class App extends Component {
         dispatch(actionCreators.addItem(text));
     };
 
-    onRemoveTodo = (index) => {
+    onPressRemove = (index) => {
         const {dispatch} = this.props;
         dispatch(actionCreators.removeItem(index));
     };
@@ -57,6 +57,7 @@ class App extends Component {
             <Item
                 item={item}
                 onPressCheck={this.onPressCheck}
+                onPressRemove={this.onPressRemove}
             />
         )
     };

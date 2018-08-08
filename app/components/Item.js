@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {StyleSheet, Text} from 'react-native'
-import {CheckBox} from 'react-native-elements'
+import {CheckBox, Icon} from 'react-native-elements'
 import {Row} from "react-native-easy-grid";
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     checkBox: {
         backgroundColor: 'transparent',
-        borderWidth: 0
+        borderWidth: 0,
     }
 });
 
@@ -38,6 +38,12 @@ export default class Item extends Component {
         onPressCheck(item.id)
     };
 
+    onPressRemove = () => {
+        const {onPressRemove, item} = this.props
+
+        onPressRemove(item.id)
+    };
+
     render() {
         const {item} = this.props;
         const {backgroundColor} = this.state;
@@ -45,12 +51,25 @@ export default class Item extends Component {
 
         return (
             <Row style={[styles.listItem, layoutStyle]}>
-                <Text style={styles.row}>{item.text}</Text>
-                <CheckBox
-                    containerStyle={styles.checkBox}
-                    checked={this.state.checked}
-                    onPress={this.onPressCheck}
-                />
+                <Row size={75}>
+                    <Text style={styles.row}>{item.text}</Text>
+                </Row>
+                <Row size={25}>
+                    <Row size={60}>
+                        <CheckBox
+                            containerStyle={styles.checkBox}
+                            checked={this.state.checked}
+                            onPress={this.onPressCheck}
+                        />
+                    </Row>
+                    <Row size={40}>
+                        <Icon
+                            name='close'
+                            onPress={this.onPressRemove}
+                            color='rosybrown'
+                        />
+                    </Row>
+                </Row>
             </Row>
         )
     }
