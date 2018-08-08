@@ -1,4 +1,7 @@
 {
-  "name": "TodoList_2",
-  "displayName": "TodoList_2"
+  "expo": {
+    "name": "TodoList_2",
+    "slug": "todo-list_2",
+    "sdkVersion": "29.0.0"
+  }
 }
