@@ -64,9 +64,17 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.TOGGLE_ITEM_COMPLETED: {
+            let _checkedItems = checkedItems;
+
+            if (checkedItems.includes(payload)) {
+                _checkedItems = _checkedItems.filter(i => i !== payload)
+            } else {
+                _checkedItems = [payload, ..._checkedItems]
+            }
+
             return {
                 ...state,
-                checkedItems: [payload, ...checkedItems]
+                checkedItems: _checkedItems
             }
         }
         case types.REMOVE_CHECKED_ITEMS: {
