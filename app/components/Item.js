@@ -11,27 +11,45 @@ const styles = StyleSheet.create({
     listItem: {
         justifyContent: 'space-between'
     },
+    checkBox: {
+        backgroundColor: 'transparent',
+        borderWidth: 0
+    }
 });
 
 export default class Item extends Component {
 
     state = {
         checked: false,
+        backgroundColor: 'white'
+    };
+
+    onPressCheck = () => {
+        const {onPressCheck, item} = this.props;
+
+        let checked = !this.state.checked;
+        let backgroundColor = checked ? '#f9f9f9' : 'white';
+
+        this.setState({
+            checked: checked,
+            backgroundColor: backgroundColor
+        });
+
+        onPressCheck(item.id)
     };
 
     render() {
-        const {onPressCheck, item} = this.props;
-        const {id, text} = item;
+        const {item} = this.props;
+        const {backgroundColor} = this.state;
+        const layoutStyle = {backgroundColor};
 
         return (
-            <Row style={styles.listItem}>
-                <Text style={styles.row}>{text}</Text>
+            <Row style={[styles.listItem, layoutStyle]}>
+                <Text style={styles.row}>{item.text}</Text>
                 <CheckBox
+                    containerStyle={styles.checkBox}
                     checked={this.state.checked}
-                    onPress={() => {
-                        this.setState({checked: !this.state.checked});
-                        onPressCheck(id)
-                    }}
+                    onPress={this.onPressCheck}
                 />
             </Row>
         )

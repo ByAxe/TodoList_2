@@ -12,7 +12,7 @@ export const actionCreators = {
         return {type: types.REMOVE_ITEM, payload: index}
     },
     toggleItemCompleted: (index) => {
-        // TODO
+        return {type: types.TOGGLE_ITEM_COMPLETED, payload: index}
     }
 };
 
@@ -60,7 +60,7 @@ export const reducer = (state = initialState, action) => {
         }
         case types.TOGGLE_ITEM_COMPLETED: {
             return {
-                // TODO
+                ...state
             }
         }
         default: {
