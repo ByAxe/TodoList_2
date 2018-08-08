@@ -34,19 +34,21 @@ class App extends Component {
 
     onAddTodo = (text) => {
         const {dispatch} = this.props;
-
         dispatch(actionCreators.addItem(text));
     };
 
     onRemoveTodo = (index) => {
         const {dispatch} = this.props;
-
         dispatch(actionCreators.removeItem(index));
+    };
+
+    onRemoveChecked = () => {
+        const {dispatch} = this.props;
+        dispatch(actionCreators.removeChecked());
     };
 
     onPressCheck = (index) => {
         const {dispatch} = this.props;
-
         dispatch(actionCreators.toggleItemCompleted(index))
     };
 
@@ -86,7 +88,10 @@ class App extends Component {
                     </View>
                 </Row>
                 <Row size={8}>
-                    <Footer text={'Remove completed items'}/>
+                    <Footer
+                        onRemoveChecked={this.onRemoveChecked}
+                        text={'Remove completed items'}
+                    />
                 </Row>
             </Grid>
         )

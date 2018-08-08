@@ -22,11 +22,14 @@ const styles = StyleSheet.create({
 
 export default class Footer extends Component {
     render() {
-        const {text} = this.props;
+        const {text, onRemoveChecked} = this.props;
 
         return (
             <View style={styles.footer}>
-                <TouchableOpacity style={styles.touchableOpacity}>
+                <TouchableOpacity
+                    onPress={onRemoveChecked}
+                    style={styles.touchableOpacity}
+                >
                     <Text style={styles.text}>{text}</Text>
                 </TouchableOpacity>
             </View>

@@ -2,6 +2,7 @@ const types = {
     ADD_ITEM: 'ADD_ITEM',
     REMOVE_ITEM: 'REMOVE_ITEM',
     TOGGLE_ITEM_COMPLETED: 'TOGGLE_ITEM_COMPLETED',
+    REMOVE_CHECKED_ITEMS: 'REMOVE_CHECKED_ITEMS'
 };
 
 export const actionCreators = {
@@ -13,6 +14,9 @@ export const actionCreators = {
     },
     toggleItemCompleted: (index) => {
         return {type: types.TOGGLE_ITEM_COMPLETED, payload: index}
+    },
+    removeChecked: () => {
+        return {type: types.REMOVE_CHECKED_ITEMS, payload: null}
     }
 };
 
@@ -32,6 +36,7 @@ const initialState = {
         {id: 11, text: 'Make a gold'},
         {id: 12, text: 'Card a place'},
     ],
+    checkedItems: []
 };
 
 let i = 12;
@@ -42,7 +47,7 @@ const generateId = () => {
 };
 
 export const reducer = (state = initialState, action) => {
-    const {items} = state;
+    const {items, checkedItems} = state;
     const {type, payload} = action;
 
     switch (type) {
@@ -60,7 +65,22 @@ export const reducer = (state = initialState, action) => {
         }
         case types.TOGGLE_ITEM_COMPLETED: {
             return {
-                ...state
+                ...state,
+                checkedItems: [payload, ...checkedItems]
+            }
+        }
+        case types.REMOVE_CHECKED_ITEMS: {
+            let _items = items;
+
+            while (checkedItems.length !== 0) {
+                let index = checkedItems.pop();
+                _items = _items.filter((item, i) => i !== index)
+            }
+
+            return {
+                ...state,
+                checkedItems: checkedItems,
+                items: _items
             }
         }
         default: {
